@@ -1,0 +1,137 @@
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+/* .form-signin input[name="first_name"] {
+  margin-bottom: -1px;
+}
+
+.form-signin input[name="last_name"] {
+  margin-bottom: -1px;
+}
+
+.form-signin input[name="national_id"] {
+  margin-bottom: -1px;
+} */
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* .form-signin input[name="name"] {
+  margin-bottom: -1px;
+} */
+
+.form-signin input {
+  margin-bottom: -1px;
+}
+
+/* .form-signin input[name="serial_number"] {
+  margin-bottom: -1px;
+}
+
+.form-signin input[name="number_of_cycles"] {
+  margin-bottom: -1px;
+} */
+
+.form-signin .datapicker {
+  margin-bottom: -1px;
+}
+
+/* .form-signin .form-select {
+  margin-bottom: 5px;
+} */
+
+.form-signin .form-radio {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-signin .battery-form {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.btn-form {
+  background-color: #d90915;
+  color: #fff;
+}
+
+.btn-home {
+  background-color: #d90915;
+  color: #fff;
+}
+
+.btn-home:hover {
+  background-color: #bd0a13;
+  color: #fff;
+}
+
+.btn-form:hover {
+  background-color: #1d1d1b;
+  color: #fff;
+}
+
+.btn-outline-light:hover {
+  background-color: #d90915;
+  color: #fff;
+  border: #212529;
+}
+
+.form-signin .hint-text {
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.form-signin .hint-router {
+  color: #212529;
+}
+
+/* .form-signin .hint-router:visited {
+  color: #212529;
+} */
+
+.form-signin .hint-router:hover {
+  color: #cc0913;
+  text-decoration: none;
+}
+
+/* Date picker */
+.dp__input {
+  height: calc(3.5rem + 2px);
+}
+
+.physical-status {
+  height: calc(3.5rem + 2px);
+  margin-bottom: -1px;
+}
+
+.last-input {
+  height: calc(3.5rem + 2px);
+  margin-bottom: 10px;
+}
