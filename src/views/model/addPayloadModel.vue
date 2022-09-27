@@ -1,51 +1,79 @@
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
 export default {
   name: "AddPayloadModel",
 
-  data() {
-    return {
-      drone_id: [],
-      drone_models: [],
-    };
-  },
-  created() {
-    this.getDroneModels();
-  },
-  methods: {
-    getDroneModels() {
+  setup() {
+    const drone_id = ref([]);
+    const drone_models = ref([]);
+    const image = ref([]);
+    const previewImage = ref([]);
+    const router = useRouter();
+
+    onMounted(() => {
+      getDroneModels();
+    });
+
+    function getDroneModels() {
       axios.get("http://127.0.0.1:8000/api/drone-models").then((response) => {
-        this.drone_models = response.data;
+        drone_models.value = response.data;
       });
-    },
-    submit(e) {
-      const form = new FormData(e.target);
+    }
 
-      const inputs = Object.fromEntries(form.entries());
+    function imgUpload(e) {
+      image.value = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image.value);
+      reader.onload = (e) => {
+        previewImage.value = e.target.result;
+      };
+    }
 
-      inputs.drone_id = Object.values(this.drone_id);
+    function submit() {
+      const formData = new FormData();
 
-      console.log(inputs);
+      formData.append(
+        "brand_name",
+        document.getElementById("brand_name").value
+      );
+      formData.append(
+        "model_name",
+        document.getElementById("model_name").value
+      );
+      formData.append("type", document.getElementById("type").value);
+      formData.append("image", document.getElementById("image").files[0]);
+
+      drone_id.value.forEach((drone_id) => {
+        formData.append("drone_id[]", drone_id);
+      });
+
+      const headers = { "Content-Type": "multipart/form-data" };
 
       axios
-        .post("http://127.0.0.1:8000/api/payload-model/add", inputs)
+        .post("http://127.0.0.1:8000/api/payload-model/add", formData, headers)
         .then((res) => {
+          console.log(res);
           if (res.data.isUnattachableDrones) {
+            console.log(res);
             alert(res.data.unattachableDrones);
           } else {
-            this.$router.push("/home");
+            router.push("/home");
           }
         })
         .catch((e) => {
           console.error(e);
         });
-    },
-  },
+    }
 
-  setup() {
-    return {};
+    return {
+      submit,
+      imgUpload,
+      drone_models,
+      drone_id,
+    };
   },
 };
 </script>
@@ -57,6 +85,7 @@ export default {
 
       <div class="form-floating">
         <input
+          id="brand_name"
           class="form-control"
           autocomplete="off"
           name="brand_name"
@@ -70,6 +99,7 @@ export default {
           class="form-control"
           autocomplete="off"
           name="model_name"
+          id="model_name"
           placeholder="Model name"
         />
         <label>Model Name</label>
@@ -80,25 +110,11 @@ export default {
           class="form-control"
           autocomplete="off"
           name="type"
+          id="type"
           placeholder="Type"
         />
         <label>Type</label>
       </div>
-
-      <!-- <select
-        name="drone_id"
-        class="form-select last-input"
-        aria-label="Drone Model"
-        style="height: auto"
-        multiple
-      >
-        <option selected>Please Select Drone Model/s</option>
-        <template v-for="drone in drone_models">
-          <option :value="drone.id">
-            {{ drone.brand_name }}
-          </option>
-        </template>
-      </select> -->
 
       <select
         v-model="drone_id"
@@ -107,25 +123,21 @@ export default {
         style="height: auto"
         class="form-select last-input"
       >
-        <!-- <option selected>Please Select Drone Model/s</option> -->
         <template v-for="drone in drone_models">
           <option :value="drone.id">
             {{ drone.brand_name }}
           </option>
         </template>
-        <!-- <option value="1">January</option>
-        <option value="2">February</option>
-        <option value="3">March</option>
-        <option value="4">April</option>
-        <option value="5">May</option>
-        <option value="6">June</option>
-        <option value="7">July</option>
-        <option value="8">August</option>
-        <option value="9">September</option>
-        <option value="10">October</option>
-        <option value="11">November</option>
-        <option value="12">December</option> -->
       </select>
+
+      <input
+        id="image"
+        name="image"
+        ref="fileInput"
+        accept="image/*"
+        type="file"
+        @onchange="imgUpload"
+      />
 
       <button class="w-100 btn btn-lg btn-form" type="submit">Submit</button>
     </form>

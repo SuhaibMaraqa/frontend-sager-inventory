@@ -61,6 +61,21 @@
   margin-bottom: 5px;
 } */
 
+/* .nva-logo {
+  margin-top: 5px;
+}
+
+.nva-logo img {
+  height: 20px;
+  width: 20px;
+} */
+
+
+img.big-image {
+  width: 350px;
+  height: 300px;
+}
+
 .form-signin .form-radio {
   margin-bottom: 10px;
   border-top-left-radius: 0;
@@ -84,7 +99,23 @@
 }
 
 .btn-home:hover {
-  background-color: #bd0a13;
+  background-color: #333333;
+  color: #fff;
+}
+
+.btn-form {
+  margin-top: 20px;
+}
+
+.btn-edit {
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #0089B1;
+  color: #fff;
+}
+
+.btn-edit:hover {
+  background-color: #1d1d1b;
   color: #fff;
 }
 
